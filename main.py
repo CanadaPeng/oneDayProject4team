@@ -7,7 +7,8 @@ main.py  —  소비패턴 데이터 탐정 🕵️
   STEP 2. 단서 분류   : Python 분류 함수로 금액 등급·시간대 태그 붙이기
   STEP 3. SQL 심문    : sql/q1~q3_*.sql 실행 (2번 SQL 담당, function/run_sql.py)
   STEP 4. 알리바이 확인: 같은 질문을 Pandas로 다시 계산해 SQL 결과와 대조
-  STEP 5. 사건 보고서  : brief_seongho.py 실행 → output/briefing.md, output/brief.json
+                       + function/validation_suyeon.py 실행 → output/validation_result.csv
+  STEP 5. 사건 보고서  : function/brief_seongho.py 실행 → output/briefing.md, output/brief.json
 
 실행: python main.py   (프로젝트 폴더 어디서 실행해도 동작)
 """
@@ -18,10 +19,11 @@ from pathlib import Path
 
 import pandas as pd
 
+from function import validation_suyeon
 from function.run_sql import DATABASE_PATH, DATA_DIR, SQL_DIR, load_csv_files
 
 PROJECT_DIR = Path(__file__).resolve().parent
-BRIEF_SCRIPT = PROJECT_DIR / "brief_seongho.py"
+BRIEF_SCRIPT = PROJECT_DIR / "function" / "brief_seongho.py"
 
 # Q2 '큰 금액' 기준: 팀 합의값 (sql/q2, brief_seongho.py와 동일해야 함)
 HIGH_AMOUNT_THRESHOLD = 150_000
@@ -188,6 +190,17 @@ def cross_check(tx: pd.DataFrame, sql: dict[str, pd.DataFrame]) -> bool:
     return all_ok
 
 
+def run_validation() -> None:
+    """5번 검증 담당 스크립트(function/validation_suyeon.py)를 실행한다."""
+    # validation_suyeon.py는 자기 파일 위치 기준으로 data/sql/output 경로를 잡으므로
+    # function/ 폴더로 옮긴 뒤에는 프로젝트 폴더 기준 경로로 바꿔서 실행한다.
+    validation_suyeon.PROJECT_DIR = PROJECT_DIR
+    validation_suyeon.DATA_DIR = PROJECT_DIR / "data"
+    validation_suyeon.SQL_DIR = PROJECT_DIR / "sql"
+    validation_suyeon.OUTPUT_DIR = PROJECT_DIR / "output"
+    validation_suyeon.main()
+
+
 # ── STEP 5. 사건 보고서 ───────────────────────────────────
 def detective_findings(tx: pd.DataFrame, sql: dict[str, pd.DataFrame]) -> None:
     section("🕵️ 탐정의 결론")
@@ -230,6 +243,7 @@ def main() -> None:
     tx = tag_transactions(tx)
     sql = run_sql_files()
     cross_check(tx, sql)
+    run_validation()
     write_briefing()
     detective_findings(tx, sql)
 
