@@ -5,6 +5,7 @@ data/processed/
 *.xlsx
 *.parquet
 *.db
+validation_result.csv
 # 예외: 가짜 샘플만 허용
 !data/sample/*.csv
 
@@ -14,6 +15,7 @@ __pycache__/
 .venv/
 venv/
 .ipynb_checkpoints/
+
 
 # ── 환경/비밀 ──
 .env
