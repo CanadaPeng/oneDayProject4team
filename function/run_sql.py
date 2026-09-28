@@ -3,7 +3,7 @@ import sqlite3
 from pathlib import Path
 import re
 
-PROJECT_DIR = Path(__file__).resolve().parent
+PROJECT_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_DIR / "data"
 SQL_DIR = PROJECT_DIR / "sql"
 DATABASE_PATH = PROJECT_DIR / "oneDay.db"
