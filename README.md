@@ -22,6 +22,32 @@
 
 ---
 
+## 📂 활용 데이터셋
+
+이 데이터셋은 소비 패턴 분석을 연습하기 위해 만든 **가상 거래 데이터**입니다.
+2026년 1월 1일부터 6월 30일까지의 지출 거래 1,200건을 담고 있습니다.
+금액 단위는 원(KRW)이며, 실제 고객 정보나 거래 내역은 포함하지 않습니다.
+
+### 파일 구성
+
+| 파일 | 행 수 | 내용 |
+|---|---:|---|
+| `transactions.csv` | 1,200건 | 거래 날짜, 금액, 결제 유형, 고객·가맹점 ID |
+| `customers.csv` | 60명 | 고객의 연령대, 지역, 직업 |
+| `merchants.csv` | 36곳 | 가맹점의 이름, 카테고리, 판매 채널, 지역 |
+| `categories.csv` | 9개 | 카테고리 코드와 한글 이름 |
+
+
+### 데이터 연결 방법
+
+| 중심 테이블 | 연결 테이블 | JOIN 조건 | 관계 |
+|---|---|---|---|
+| `transactions` | `customers` | `transactions.customer_id = customers.customer_id` | 여러 거래 : 고객 1명 |
+| `transactions` | `merchants` | `transactions.merchant_id = merchants.merchant_id` | 여러 거래 : 가맹점 1곳 |
+| `transactions` | `categories` | `transactions.category = categories.category` | 여러 거래 : 카테고리 1개 |
+
+---
+
 ## 📊 분석 질문
 
 > 질문을 사전에 고정하여 SQL과 Pandas가 같은 기준으로 계산되어 교차검증이 가능하도록 합니다.
