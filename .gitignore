@@ -2,7 +2,6 @@
 data/raw/
 data/processed/
 *.zip
-*.csv
 *.xlsx
 *.parquet
 # 예외: 가짜 샘플만 허용
