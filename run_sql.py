@@ -62,9 +62,6 @@ def load_csv_files(connection: sqlite3.Connection) -> None:
         print(f"{table_name}: {row_count} rows")
 
 
-import re
-
-
 def result_title(query: str, fallback: str) -> str:
     """SQL 맨 앞 주석을 결과 파일 제목으로 사용한다."""
     first_line = query.lstrip().splitlines()[0].strip()
@@ -108,7 +105,7 @@ def run_queries(connection: sqlite3.Connection) -> None:
             for row in rows:
                 print(" | ".join(str(value) for value in row))
 
-                
+
 def main() -> None:
     if not DATA_DIR.exists():
         print(f"data 폴더를 찾을 수 없습니다: {DATA_DIR}")
