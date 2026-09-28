@@ -9,3 +9,7 @@ df = pd.read_csv("data/merchants.csv")
 df.head()
 df = pd.read_csv("data/transactions.csv")
 df.head()
+
+print(df.shape)
+df.info()
+df["amount"].describe()
