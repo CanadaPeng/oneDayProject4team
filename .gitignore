@@ -4,6 +4,7 @@ data/processed/
 *.zip
 *.xlsx
 *.parquet
+*.db
 # 예외: 가짜 샘플만 허용
 !data/sample/*.csv
 
