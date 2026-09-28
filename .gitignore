@@ -1,0 +1,24 @@
+# ── 데이터: 절대 커밋하지 않음 ──
+data/raw/
+data/processed/
+*.zip
+*.csv
+*.xlsx
+*.parquet
+# 예외: 가짜 샘플만 허용
+!data/sample/*.csv
+
+# ── Python ──
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ── 환경/비밀 ──
+.env
+*.key
+
+# ── OS ──
+.DS_Store
+Thumbs.db
